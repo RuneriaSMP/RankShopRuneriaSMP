@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floating Rank System | Premium Minecraft Ranks</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #0f172a;
+            --secondary-dark: #1e293b;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --accent-pink: #ec4899;
+            --accent-cyan: #06b6d4;
+            --accent-orange: #f97316;
+            --accent-red: #ef4444;
+            --accent-emerald: #10b981;
+            --accent-violet: #7c3aed;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(100, 116, 139, 0.2);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.2);
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Background floating elements */
+        .floating-elements {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            opacity: 0.1;
+            filter: blur(40px);
+            animation: float 20s infinite linear;
+        }
+        
+        .floating-element:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            left: -100px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+            animation-duration: 25s;
+        }
+        
+        .floating-element:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            top: 50%;
+            right: -100px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+            animation-duration: 20s;
+            animation-direction: reverse;
+        }
+        
+        .floating-element:nth-child(3) {
+            width: 250px;
+            height: 250px;
+            bottom: -50px;
+            left: 30%;
+            background: linear-gradient(135deg, var(--accent-orange), var(--accent-red));
+            animation-duration: 30s;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(20px, 40px) rotate(90deg);
+            }
+            50% {
+                transform: translate(0, 80px) rotate(180deg);
+            }
+            75% {
+                transform: translate(-20px, 40px) rotate(270deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+        
+        /* Main container */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .page-header h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+        
+        .page-header .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+        
+        .header-decoration {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .decoration-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            opacity: 0.7;
+        }
+        
+        .decoration-dot:nth-child(2) {
+            background: var(--accent-purple);
+            opacity: 0.5;
+        }
+        
+        .decoration-dot:nth-child(3) {
+            background: var(--accent-blue);
+            opacity: 0.3;
+        }
+        
+        /* Top navigation */
+        .top-navigation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .nav-button {
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            color: var(--text-primary);
+            font-size: 2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            border-color: var(--accent-cyan);
+        }
+        
+        .nav-button.prev {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+        }
+        
+        .nav-button.next {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+        }
+        
+        .rank-indicators {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .rank-indicator {
+            width: 50px;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.15);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .rank-indicator.active {
+            background: var(--accent-cyan);
+            box-shadow: 0 0 10px var(--accent-cyan);
+        }
+        
+        /* Rank slider container */
+        .rank-slider-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 24px;
+            backdrop-filter: blur(20px);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 50px;
+            padding: 20px;
+        }
+        
+        .rank-slider {
+            display: flex;
+            transition: transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+            height: 100%;
+        }
+        
+        /* Rank slide */
+        .rank-slide {
+            min-width: 100%;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .rank-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .rank-icon-container {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 25px;
+            font-size: 3.5rem;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .rank-icon-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+            z-index: -1;
+        }
+        
+        .rank-title-section {
+            flex: 1;
+        }
+        
+        .rank-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        
+        .rank-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+        
+        .rank-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            padding: 12px 25px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .money-icon {
+            font-size: 1.5rem;
+        }
+        
+        .rank-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .rank-card {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 18px;
+            padding: 28px;
+            border-left: 4px solid;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .rank-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 22px;
+        }
+        
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-item {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .feature-item:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-icon {
+            color: var(--accent-cyan);
+            margin-right: 12px;
+            margin-top: 3px;
+            font-size: 0.9rem;
+        }
+        
+        .feature-text {
+            flex: 1;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        /* Quick access cards */
+        .quick-access {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+        
+        .quick-access-card {
+            background: var(--glass-bg);
+            border-radius: 16px;
+            padding: 25px 20px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .quick-access-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .quick-access-icon {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .quick-access-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .quick-access-price {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        /* Footer */
+        .page-footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        
+        .footer-highlight {
+            color: var(--accent-cyan);
+            font-weight: 500;
+        }
+        
+        /* Bottom navigation buttons */
+        .bottom-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .bottom-nav-button {
+            padding: 15px 30px;
+            border-radius: 15px;
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .bottom-nav-button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent-cyan);
+        }
+        
+        .bottom-nav-button .emoji {
+            font-size: 1.4rem;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .rank-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header h1 {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 20px 15px;
+            }
+            
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .rank-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .rank-icon-container {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .rank-title {
+                font-size: 2.2rem;
+            }
+            
+            .quick-access {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .nav-button {
+                width: 60px;
+                height: 60px;
+                font-size: 1.7rem;
+            }
+            
+            .top-navigation {
+                gap: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .quick-access {
+                grid-template-columns: 1fr;
+            }
+            
+            .rank-slide {
+                padding: 30px 20px;
+            }
+            
+            .top-navigation {
+                flex-direction: column;
+            }
+            
+            .nav-button {
+                width: 55px;
+                height: 55px;
+            }
+            
+            .bottom-navigation {
+                flex-direction: column;
+            }
+        }
+        
+        /* Rank-specific colors */
+        .wander-color { color: #3b82f6; }
+        .wander-bg { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        
+        .blade-color { color: #ef4444; }
+        .blade-bg { background: linear-gradient(135deg, #ef4444, #b91c1c); }
+        
+        .rune-color { color: #8b5cf6; }
+        .rune-bg { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        
+        .guard-color { color: #06b6d4; }
+        .guard-bg { background: linear-gradient(135deg, #06b6d4, #0e7490); }
+        
+        .noble-color { color: #f97316; }
+        .noble-bg { background: linear-gradient(135deg, #f97316, #ea580c); }
+        
+        .master-color { color: #ec4899; }
+        .master-bg { background: linear-gradient(135deg, #ec4899, #be185d); }
+        
+        .dragon-color { color: #7c3aed; }
+        .dragon-bg { background: linear-gradient(135deg, #7c3aed, #5b21b6); }
+        
+        .eternal-color { color: #10b981; }
+        .eternal-bg { background: linear-gradient(135deg, #10b981, #047857); }
+    </style>
+</head>
+<body>
+    <!-- Floating background elements -->
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+    
+    <div class="main-container">
+        <!-- Page Header -->
+        <header class="page-header">
+            <h1><i class="fas fa-crown"></i> Premium Rank System</h1>
+            <p class="subtitle">Tingkatkan pengalaman bermain Minecraft Anda dengan rank eksklusif. Setiap rank menawarkan fitur unik dan kemampuan spesial untuk gameplay yang lebih seru.</p>
+            <div class="header-decoration">
+                <div class="decoration-dot"></div>
+                <div class="decoration-dot"></div>
+                <div class="decoration-dot"></div>
+            </div>
+        </header>
+        
+        <!-- Top Navigation -->
+        <div class="top-navigation">
+            <button class="nav-button prev" id="prevBtn">
+                <span class="emoji">◀️</span>
+            </button>
+            
+            <div class="rank-indicators" id="rankIndicators">
+                <!-- Indicators will be generated by JavaScript -->
+            </div>
+            
+            <button class="nav-button next" id="nextBtn">
+                <span class="emoji">▶️</span>
+            </button>
+        </div>
+        
+        <!-- Rank Slider -->
+        <div class="rank-slider-container">
+            <div class="rank-slider" id="rankSlider">
+                <!-- Rank slides will be generated by JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Bottom Navigation -->
+        <div class="bottom-navigation">
+            <button class="bottom-nav-button" id="firstBtn">
+                <span class="emoji">🟦</span> <span>WANDER</span>
+            </button>
+            <button class="bottom-nav-button" id="lastBtn">
+                <span class="emoji">♾️</span> <span>ETERNAL</span>
+            </button>
+            <button class="bottom-nav-button" id="randomBtn">
+                <span class="emoji">🎲</span> <span>Rank Acak</span>
+            </button>
+        </div>
+        
+        <!-- Quick Access Cards -->
+        <div class="quick-access" id="quickAccess">
+            <!-- Quick access cards will be generated by JavaScript -->
+        </div>
+        
+        <!-- Footer -->
+        <footer class="page-footer">
+            <p>© 2026 RuneriaSMP | <span class="footer-highlight">chat : 088245020120</span> | chat owner untuk membeli rank permanen</p>
+            <p>© 2026 RuneriaSMP | <span class="footer-highlight">grup : https://bit.ly/runeriasmp-whatsapp</span> | gabung ke grup dan ketahui informasi tentang server</p>
+            <p>Desain dibuat dengan <i class="fas fa-heart" style="color: #ef4444;"></i> untuk pengalaman pengguna terbaik</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Rank data
+        const ranks = [
+            {
+                id: 0,
+                name: "WANDER",
+                icon: "🟦",
+                price: "20.000",
+                description: "Rank pemula untuk memulai petualangan",
+                colorClass: "wander-color",
+                bgClass: "wander-bg",
+                permissions: [
+                    "Claim Limit: 3",
+                    "Claim Block: 1.000",
+                    "Home Limit: 3",
+                    "Player Vaults: 2"
+                ],
+                commands: [
+                    "/feed → Isi hunger kapan saja",
+                    "/ec → Akses Ender Chest pribadi",
+                    "/hat → Pakai item sebagai topi"
+                ],
+                bonuses: [
+                    "/kit WANDER",
+                    "5.000 Uang Tunai"
+                ]
+            },
+            {
+                id: 1,
+                name: "BLADE",
+                icon: "⚔️",
+                price: "50.000",
+                description: "Upgrade dari Wander dengan kemampuan bertarung lebih baik",
+                colorClass: "blade-color",
+                bgClass: "blade-bg",
+                permissions: [
+                    "Claim Limit: 5",
+                    "Claim Block: 3.000",
+                    "Home Limit: 5",
+                    "Player Vaults: 3"
+                ],
+                commands: [
+                    "Semua fitur Wander",
+                    "/repair → Perbaiki item di tangan",
+                    "/ptime → Atur waktu pribadi",
+                    "/team create → Membuat tim / party"
+                ],
+                bonuses: [
+                    "/kit BLADE",
+                    "10.000 Uang Tunai"
+                ]
+            },
+            {
+                id: 2,
+                name: "RUNE",
+                icon: "🔮",
+                price: "75.000",
+                description: "Rank dengan kemampuan mobilitas tinggi",
+                colorClass: "rune-color",
+                bgClass: "rune-bg",
+                permissions: [
+                    "Claim Limit: 7",
+                    "Claim Block: 5.000",
+                    "Home Limit: 7",
+                    "Player Vaults: 4"
+                ],
+                commands: [
+                    "Semua fitur Blade",
+                    "/fly → Terbang bebas di seluruh dunia"
+                ],
+                bonuses: [
+                    "/kit RUNE",
+                    "15.000 Uang Tunai"
+                ]
+            },
+            {
+                id: 3,
+                name: "GUARD",
+                icon: "🛡️",
+                price: "125.000",
+                description: "Rank survival dengan pertahanan maksimal",
+                colorClass: "guard-color",
+                bgClass: "guard-bg",
+                permissions: [
+                    "Claim Limit: 10",
+                    "Claim Block: 10.000",
+                    "Home Limit: 10",
+                    "Player Vaults: 6"
+                ],
+                commands: [
+                    "Semua fitur Rune",
+                    "/heal → Isi HP secara instan",
+                    "/pweather → Atur cuaca pribadi"
+                ],
+                bonuses: [
+                    "/kit GUARD",
+                    "25.000 Uang Tunai"
+                ]
+            },
+            {
+                id: 4,
+                name: "NOBLE",
+                icon: "👑",
+                price: "150.000",
+                description: "Rank kenyamanan dengan fasilitas lengkap",
+                colorClass: "noble-color",
+                bgClass: "noble-bg",
+                permissions: [
+                    "Claim Limit: 15",
+                    "Claim Block: 15.000",
+                    "Home Limit: 15",
+                    "Player Vaults: 8"
+                ],
+                commands: [
+                    "Semua fitur Guard",
+                    "/repair all → Perbaiki semua item sekaligus",
+                    "/nick → Ganti nickname di chat"
+                ],
+                bonuses: [
+                    "/kit NOBLE",
+                    "30.000 Uang Tunai"
+                ]
+            },
+            {
+                id: 5,
+                name: "MASTER",
+                icon: "🔥",
+                price: "200.000",
+                description: "Rank untuk power player yang mendominasi",
+                colorClass: "master-color",
+                bgClass: "master-bg",
+                permissions: [
+                    "Claim Limit: 20",
+                    "Claim Block: 25.000",
+                    "Home Limit: 20",
+                    "Player Vaults: 10"
+                ],
+                commands: [
+                    "Semua fitur Noble",
+                    "/tp → Teleport ke player atau lokasi",
+                    "/say → Broadcast pesan ke seluruh server"
+                ],
+                bonuses: [
+                    "/kit MASTER",
+                    "50.000 Uang Tunai"
+                ]
+            },
+            {
+                id: 6,
+                name: "DRAGON",
+                icon: "🐉",
+                price: "250.000",
+                description: "Rank elite dengan kendali atas dunia",
+                colorClass: "dragon-color",
+                bgClass: "dragon-bg",
+                permissions: [
+                    "Claim Limit: 30",
+                    "Claim Block: 35.000",
+                    "Home Limit: 30",
+                    "Player Vaults: 12"
+                ],
+                commands: [
+                    "Semua fitur Master",
+                    "/time → Atur waktu dunia",
+                    "/weather → Atur cuaca dunia"
+                ],
+                bonuses: [
+                    "/kit DRAGON",
+                    "75.000 Uang Tunai"
+                ]
+            },
+            {
+                id: 7,
+                name: "ETERNAL",
+                icon: "♾️",
+                price: "300.000",
+                description: "Rank tertinggi dengan kemampuan tak terbatas",
+                colorClass: "eternal-color",
+                bgClass: "eternal-bg",
+                permissions: [
+                    "Claim Limit: 50",
+                    "Claim Block: 50.000",
+                    "Home Limit: 50",
+                    "Player Vaults: 15"
+                ],
+                commands: [
+                    "Semua fitur Dragon",
+                    "/god → Mode kebal terhadap damage",
+                    "/invsee → Lihat inventory player lain"
+                ],
+                bonuses: [
+                    "/kit ETERNAL",
+                    "100.000 Uang Tunai"
+                ]
+            }
+        ];
+
+        // DOM Elements
+        const rankSlider = document.getElementById('rankSlider');
+        const rankIndicators = document.getElementById('rankIndicators');
+        const quickAccess = document.getElementById('quickAccess');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const firstBtn = document.getElementById('firstBtn');
+        const lastBtn = document.getElementById('lastBtn');
+        const randomBtn = document.getElementById('randomBtn');
+        
+        let currentSlide = 0;
+        let autoSlideInterval;
+
+        // Generate rank slides
+        function generateRankSlides() {
+            rankSlider.innerHTML = '';
+            
+            ranks.forEach((rank, index) => {
+                const slide = document.createElement('div');
+                slide.className = 'rank-slide';
+                
+                // Rank header
+                const rankHeader = document.createElement('div');
+                rankHeader.className = 'rank-header';
+                
+                const iconContainer = document.createElement('div');
+                iconContainer.className = `rank-icon-container ${rank.bgClass}`;
+                iconContainer.innerHTML = `<span>${rank.icon}</span>`;
+                
+                const titleSection = document.createElement('div');
+                titleSection.className = 'rank-title-section';
+                
+                const title = document.createElement('h2');
+                title.className = `rank-title ${rank.colorClass}`;
+                title.textContent = rank.name;
+                
+                const description = document.createElement('p');
+                description.className = 'rank-description';
+                description.textContent = rank.description;
+                
+                const price = document.createElement('div');
+                price.className = `rank-price ${rank.colorClass}`;
+                price.style.background = `linear-gradient(135deg, ${rank.colorClass}20, ${rank.colorClass}10)`;
+                price.style.border = `1px solid ${rank.colorClass}30`;
+                price.innerHTML = `
+                    <span class="money-icon">💰</span>
+                    <span>${rank.price} Uang Tunai</span>
+                `;
+                
+                titleSection.appendChild(title);
+                titleSection.appendChild(description);
+                titleSection.appendChild(price);
+                
+                rankHeader.appendChild(iconContainer);
+                rankHeader.appendChild(titleSection);
+                
+                // Rank content
+                const rankContent = document.createElement('div');
+                rankContent.className = 'rank-content';
+                
+                // Permissions card
+                const permissionsCard = document.createElement('div');
+                permissionsCard.className = 'rank-card';
+                permissionsCard.style.borderLeftColor = `var(--${rank.colorClass.split('-')[0]}-color)`;
+                
+                const permCardHeader = document.createElement('div');
+                permCardHeader.className = 'card-header';
+                permCardHeader.innerHTML = `
+                    <div class="card-icon ${rank.colorClass}" style="background: ${rank.colorClass}20">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <h3 class="card-title">Permissions</h3>
+                `;
+                
+                const permList = document.createElement('ul');
+                permList.className = 'feature-list';
+                
+                rank.permissions.forEach(permission => {
+                    const li = document.createElement('li');
+                    li.className = 'feature-item';
+                    li.innerHTML = `
+                        <div class="feature-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="feature-text">${permission}</div>
+                    `;
+                    permList.appendChild(li);
+                });
+                
+                permissionsCard.appendChild(permCardHeader);
+                permissionsCard.appendChild(permList);
+                
+                // Commands card
+                const commandsCard = document.createElement('div');
+                commandsCard.className = 'rank-card';
+                commandsCard.style.borderLeftColor = `var(--${rank.colorClass.split('-')[0]}-color)`;
+                
+                const cmdCardHeader = document.createElement('div');
+                cmdCardHeader.className = 'card-header';
+                cmdCardHeader.innerHTML = `
+                    <div class="card-icon ${rank.colorClass}" style="background: ${rank.colorClass}20">
+                        <i class="fas fa-terminal"></i>
+                    </div>
+                    <h3 class="card-title">Commands</h3>
+                `;
+                
+                const cmdList = document.createElement('ul');
+                cmdList.className = 'feature-list';
+                
+                rank.commands.forEach(command => {
+                    const li = document.createElement('li');
+                    li.className = 'feature-item';
+                    li.innerHTML = `
+                        <div class="feature-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="feature-text">${command}</div>
+                    `;
+                    cmdList.appendChild(li);
+                });
+                
+                commandsCard.appendChild(cmdCardHeader);
+                commandsCard.appendChild(cmdList);
+                
+                // Bonuses card
+                const bonusesCard = document.createElement('div');
+                bonusesCard.className = 'rank-card';
+                bonusesCard.style.borderLeftColor = `var(--${rank.colorClass.split('-')[0]}-color)`;
+                
+                const bonusCardHeader = document.createElement('div');
+                bonusCardHeader.className = 'card-header';
+                bonusCardHeader.innerHTML = `
+                    <div class="card-icon ${rank.colorClass}" style="background: ${rank.colorClass}20">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3 class="card-title">Bonuses</h3>
+                `;
+                
+                const bonusList = document.createElement('ul');
+                bonusList.className = 'feature-list';
+                
+                rank.bonuses.forEach(bonus => {
+                    const li = document.createElement('li');
+                    li.className = 'feature-item';
+                    li.innerHTML = `
+                        <div class="feature-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="feature-text">${bonus}</div>
+                    `;
+                    bonusList.appendChild(li);
+                });
+                
+                bonusesCard.appendChild(bonusCardHeader);
+                bonusesCard.appendChild(bonusList);
+                
+                // Assemble content
+                rankContent.appendChild(permissionsCard);
+                rankContent.appendChild(commandsCard);
+                rankContent.appendChild(bonusesCard);
+                
+                // Assemble slide
+                slide.appendChild(rankHeader);
+                slide.appendChild(rankContent);
+                
+                rankSlider.appendChild(slide);
+            });
+        }
+        
+        // Generate indicators
+        function generateIndicators() {
+            rankIndicators.innerHTML = '';
+            
+            ranks.forEach((_, index) => {
+                const indicator = document.createElement('div');
+                indicator.className = 'rank-indicator';
+                if (index === currentSlide) indicator.classList.add('active');
+                
+                indicator.addEventListener('click', () => {
+                    goToSlide(index);
+                });
+                
+                rankIndicators.appendChild(indicator);
+            });
+        }
+        
+        // Generate quick access cards
+        function generateQuickAccessCards() {
+            quickAccess.innerHTML = '';
+            
+            ranks.forEach((rank, index) => {
+                const card = document.createElement('div');
+                card.className = 'quick-access-card';
+                card.style.borderTop = `4px solid var(--${rank.colorClass.split('-')[0]}-color)`;
+                card.style.cursor = 'pointer';
+                
+                card.innerHTML = `
+                    <div class="quick-access-icon ${rank.colorClass}">
+                        ${rank.icon}
+                    </div>
+                    <h4 class="quick-access-title">${rank.name}</h4>
+                    <p class="quick-access-price">
+                        <span>💰</span>
+                        <span>${rank.price} Uang Tunai</span>
+                    </p>
+                `;
+                
+                card.addEventListener('click', () => {
+                    goToSlide(index);
+                });
+                
+                quickAccess.appendChild(card);
+            });
+        }
+        
+        // Go to specific slide
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            rankSlider.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update indicators
+            document.querySelectorAll('.rank-indicator').forEach((indicator, index) => {
+                if (index === currentSlide) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+            
+            // Reset auto slide timer
+            resetAutoSlide();
+        }
+        
+        // Next slide
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % ranks.length;
+            goToSlide(currentSlide);
+        }
+        
+        // Previous slide
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + ranks.length) % ranks.length;
+            goToSlide(currentSlide);
+        }
+        
+        // Go to first slide
+        function goToFirstSlide() {
+            goToSlide(0);
+        }
+        
+        // Go to last slide
+        function goToLastSlide() {
+            goToSlide(ranks.length - 1);
+        }
+        
+        // Go to random slide
+        function goToRandomSlide() {
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * ranks.length);
+            } while (randomIndex === currentSlide);
+            
+            goToSlide(randomIndex);
+        }
+        
+        // Auto slide functionality
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(nextSlide, 6000);
+        }
+        
+        function resetAutoSlide() {
+            clearInterval(autoSlideInterval);
+            startAutoSlide();
+        }
+        
+        // Event listeners
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+        firstBtn.addEventListener('click', goToFirstSlide);
+        lastBtn.addEventListener('click', goToLastSlide);
+        randomBtn.addEventListener('click', goToRandomSlide);
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') prevSlide();
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'Home') goToFirstSlide();
+            if (e.key === 'End') goToLastSlide();
+            if (e.key === ' ') goToRandomSlide(); // Spacebar for random
+        });
+        
+        // Initialize
+        function init() {
+            generateRankSlides();
+            generateIndicators();
+            generateQuickAccessCards();
+            goToSlide(0);
+            startAutoSlide();
+            
+            // Pause auto slide on hover
+            rankSlider.parentElement.addEventListener('mouseenter', () => {
+                clearInterval(autoSlideInterval);
+            });
+            
+            rankSlider.parentElement.addEventListener('mouseleave', () => {
+                startAutoSlide();
+            });
+        }
+        
+        // Start the application
+        init();
+    </script>
+</body>
+</html>
